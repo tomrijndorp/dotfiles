@@ -28,15 +28,6 @@ if [ ! -z $MOUSE_ID ]; then
     xinput set-prop $MOUSE_ID $PROP_NUM 1
 fi
 
-# Do an incremental editor build for unreal (hot reload)
-function unrealbuild {
-    UNR_PATH=$HOME/work/unrealengine;
-    RANDNUM=$(( ( RANDOM % 1000 ) + 1000 ));
-    CURR_DIR=`pwd`;
-    PROJ_NAME=$(basename ${1%.uproject});
-
-    ${UNR_PATH}/Engine/Build/BatchFiles/Linux/RunMono.sh ${UNR_PATH}/Engine/Binaries/DotNET/UnrealBuildTool.exe $PROJ_NAME -Module=$PROJ_NAME $RANDNUM Linux Debug -editorrecompile -canskiplink "${CURR_DIR}/${PROJ_NAME}.uproject" -progress
-}
 
 # keyboard repeat settings
 xset r rate 200 25
