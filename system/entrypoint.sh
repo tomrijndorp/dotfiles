@@ -6,7 +6,8 @@
 export DOTFILES=$HOME/.dotfiles
 
 # Set to any non-empty string for debug prints
-export DEBUG='yes'
+export DEBUG=${DEBUG-''}
+echo "DEBUG is set to $DEBUG"
 
 # Use colors in the terminal
 export CLICOLOR=1
@@ -15,7 +16,7 @@ export CLICOLOR=1
 # Debug logging
 #
 dprint() {
-    [[ -n $DEBUG ]] && echo -e "\033[1m[DEBUG] $1\033[0m"
+    if [[ -n $DEBUG ]]; then echo -e "\033[1m[DEBUG] $1\033[0m"; fi
 }
 export -f dprint
 
@@ -33,50 +34,36 @@ else
 fi
 
 #
-# Set PATH
+# Get our own directory
 #
-# We just re-set PATH here in case anybody messes with it, and such that we don't keep appending when
-# we source this file multiple times. Note: generally, I want access to applications installed using
-# Homebrew first. It installs in /usr/local/bin.
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-export GOPATH="$HOME/.go"
-export GOBIN="$GOPATH/bin"
-[[ -n $LINUX ]] && export PATH=$PATH:$HOME/.local/bin/
-
-# Extend the path for user-install pip packages on mac
-[[ -n $MAC ]] && PATH=$PATH:$HOME/Library/Python/3.7/bin
+# If this file is called from a symlink, follow it; otherwise, get the current dir name.
+# BASH_SOURCE is the name of the file that's currently being sourced.
+THIS_DIR=~/.dotfiles/system  # Provide sensible default in case commands below fail
+[[ -f $BASH_SOURCE ]] && THIS_DIR=$(dirname $BASH_SOURCE)
+[[ -L $BASH_SOURCE ]] && THIS_DIR=$(dirname $(readlink $BASH_SOURCE))
 
 #
 # Call other files
 #
-# If this file is called from a symlink, follow it; otherwise, get the current dir name.
-# BASH_SOURCE is the name of the file that's currently being sourced.
-[[ -n $(readlink $BASH_SOURCE) ]] && THIS_DIR=$(dirname $(readlink $BASH_SOURCE)) || THIS_DIR=$(dirname $BASH_SOURCE)
-dprint $THIS_DIR
-. $THIS_DIR/alias.sh
-. $THIS_DIR/functions.sh
-
-# Bash completion (for git)
-[[ -n $MAC && -f $(brew --prefix)/etc/bash_completion ]] && . $(brew --prefix)/etc/bash_completion
-
-#
-# Powerline clone
-#
-function _update_ps1() {
-    PS1="$($GOPATH/bin/powerline-go \
-        -max-width 20 \
-        -modules "nix-shell,user,ssh,cwd,jobs,exit,root" \
-        -priority "root,cwd,user,host,ssh,perms,git-branch,git-status,hg,jobs,exit,cwd-path" \
-        -error $?)"
+source_and_log() {
+	dprint "Sourcing $1..." && . "$1"
 }
-[[ -n $MAC ]] && [[ -f "$GOBIN/powerline-go" ]] && PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+dprint "THIS_DIR = $THIS_DIR"
+source_and_log "$THIS_DIR/alias.sh"
+source_and_log "$THIS_DIR/functions.sh"
+source_and_log "$THIS_DIR/environment.sh"
+
+# Bash completion (for git on Mac)
+[[ $SHELL =~ bash && -n $MAC && -f $(brew --prefix)/etc/bash_completion ]] && . "$(brew --prefix)/etc/bash_completion"
 
 #
-# Call user code
+# Powerline
 #
-# If you have scripts that need to be sourced from your local system that cannot be committed to this repo,
-# create a symlink here with the name local_bashrc.sh and have it point to the file you want to execute.
-if [[ -f $THIS_DIR/local_bashrc.sh ]]; then
-	dprint "Executing your local_bashrc.sh symlink"
-	. $THIS_DIR/local_bashrc.sh
-fi
+command -v powerline-daemon > /dev/null && {
+	# powerline found
+	powerline-daemon -q
+	export POWERLINE_BASH_CONTINUATION=1
+	export POWERLINE_BASH_SELECT=1
+	[[ -n $MAC ]] && [[ $SHELL =~ bash ]] && . ~/Library/Python/3.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh
+	[[ -n $MAC ]] && [[ $SHELL =~ zsh ]] && . ~/Library/Python/3.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
+}

@@ -24,6 +24,7 @@ if [[ $PROMPT == 'y' ]]; then
 	[[ -f $PROFILE_FILE ]] && mv "$PROFILE_FILE"{,.backup}
 	ln -s "$ENTRYPOINT_FILE" "$PROFILE_FILE"
 	echo 'If you open a new terminal, it should have your environment.'
+	# shellcheck disable=SC2016
 	echo 'Check with e.g. echo $MAC; echo $LINUX'
 else
 	echo -e "Don't forget to add a line such as\n\tsource $ENTRYPOINT_FILE\nto your rc file."

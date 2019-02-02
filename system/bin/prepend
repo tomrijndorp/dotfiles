@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+
+[[ $# -eq 0 ]] && {
+echo 'Usage:
+1) prepend file text
+2) "text" | prepend file'
+exit 0
+}
+
+outfile=$1
+[[ ! -r $outfile ]] && echo "$outfile is not readable" && exit 1
+[[ ! -w $outfile ]] && echo "$outfile is not writable" && exit 1
+
+if [[ $# -eq 2 ]]; then
+	txt=$2
+else
+	read -r txt
+fi
+
+# Add a newline to input if not present
+[[ ! $txt =~ .*'\n' ]] && txt=$txt$'\n'
+
+data="$txt"
+data=$data$(cat "$outfile")
+echo "$data" > "$outfile"

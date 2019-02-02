@@ -1,6 +1,6 @@
 prune_docker_images()
 {
-    docker images | egrep '((weeks)|(months))\sago' | awk '{print $3}' | xargs docker rmi
+    docker images | grep -E '((weeks)|(months))\sago' | awk '{print $3}' | xargs docker rmi
 }
 
 # Improved version of 'watch'

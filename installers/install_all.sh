@@ -2,11 +2,10 @@
 
 set -euo pipefail
 
-# Installer for a clean mac
+# Installer for a clean mac / linux system
 
 # Note: expects that you have run your shell entrypoint script that contains stuff such as MAC, LINUX, dprint(), etc.
 
-# Install homebrew
 install_homebrew() {
     # Requires the XCode command line tools, but will install those automatically.
     # You may be asked for a password.
@@ -18,6 +17,9 @@ install_homebrew() {
 }
 
 install_powerline_fonts() {
+    # Exit if we have powerline fonts already
+    [[ -n $MAC ]] && ls ~/Library/Fonts/*powerline* > /dev/null && dprint "Skipping powerline font installation" && return 0
+    [[ -n $LINUX ]] && return 0  # For linux, we just apt install fonts-powerline
     dprint "Installing powerline fonts..."
     BACK=$(pwd)
     cd /tmp
@@ -26,7 +28,22 @@ install_powerline_fonts() {
     ./install.sh
     cd ..
     rm -rf fonts
-    cd $BACK
+    cd "$BACK"
+}
+
+install_powerline() {
+    pip3 install --user \
+        powerline-status \
+        powerline-gitstatus
+    ln -sf "$DOTFILES/config/powerline/" ~/.config
+}
+
+install_ohmyzsh() {
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+}
+
+configure_vim() {
+    ln -sf "$DOTFILES/config/vim/.vimrc" ~/.vimrc
 }
 
 install_sublime() {
@@ -43,7 +60,7 @@ install_synergy() {
     if [[ -n $LINUX ]]; then
         dprint "Installing synergy..."
         TMP=mktemp
-        curl https://symless.com/synergy/download/direct?platform=ubuntu&architecture=x64 > $TMP
+        curl https://symless.com/synergy/download/direct?platform=ubuntu\&architecture=x64 > $TMP
         sudo apt install -f $TMP
     fi
 }
@@ -51,6 +68,8 @@ install_synergy() {
 if [[ -n $MAC ]]; then
     install_homebrew
     install_powerline_fonts
+    install_powerline
+    install_ohmyzsh
     
     # Install some useful utilities
     # git goes before bash-completion
@@ -60,19 +79,14 @@ if [[ -n $MAC ]]; then
         bash-completion \
         jupyter \
         htop \
+        shellcheck \
         the_silver_searcher \
         tree \
-        python3  # Automatically installs pip3 these days
+        python3 \
+        vim --with-python3
 
     # Add path for user-installed Python packages
-    export PATH=$PATH:$HOME/Library/Python/3.7/bin
-
-    # Let's pimp the shell with a powershell fork (built in go, so reasonably fast)
-    go get -u github.com/justjanne/powerline-go
-    # Re-source
-    . $DOTFILES/system/entrypoint.sh
-    # Note: if the fonts don't seem to be working; you do need to set your terminal
-    # application to use a powerline-patched font!
+    export PATH="$PATH:$HOME/Library/Python/3.7/bin"
 fi
 
 if [[ -n $LINUX ]]; then
@@ -96,6 +110,11 @@ fi
 
 # Install python packages
 pip3 install --user \
-    numpy \
     bokeh \
+    numpy \
     yamllint
+
+# Re-source
+. "$DOTFILES/system/entrypoint.sh"
+# Note: if the fonts don't seem to be working; you do need to set your terminal
+# application to use a powerline-patched font!

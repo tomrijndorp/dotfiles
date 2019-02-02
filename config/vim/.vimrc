@@ -164,7 +164,10 @@ au FileType gitcommit setlocal tw=72
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " Powerline
-set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
+" Linux
+set rtp+=$HOME/.local/lib/python3.7/site-packages/powerline/bindings/vim/
+" Mac
+set rtp+=$HOME/Library/Python/3.7/lib/python/site-packages/powerline/bindings/vim/
 
 " Always show statusline
 set laststatus=2

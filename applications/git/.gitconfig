@@ -1,3 +1,5 @@
+# Note: this file is intended to extend your regular .gitconfig file.
+# Support for includes was added in 1.7.10. To include, add
 [alias]
 	co = checkout
 	br = branch
@@ -11,12 +13,12 @@
 	remote = green
 [color "diff"]
 	meta = yellow bold
-	frag = magenta bold
-	old = red bold
-	new = green bold
+	frag = white bold
+	old = red
+	new = green
 [color "status"]
 	added = green
-	changed = cyan
+	changed = yellow
 	untracked = red
 [push]
 	default = simple
