@@ -18,3 +18,5 @@
 	added = green
 	changed = cyan
 	untracked = red
+[push]
+	default = simple

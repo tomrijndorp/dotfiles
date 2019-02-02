@@ -78,12 +78,17 @@ fi
 if [[ -n $LINUX ]]; then
     sudo apt install -y --no-install-recommends \
         apt-transport-https \
+        curl \
         docker-ce \
+        gdb \
         gitk \
+        less \
         python3 \
         python3-pip \
+        scons \
         shellcheck \
-        vim-gtk3
+        vim-gtk3 \
+        wget
 
     install_sublime
     install_synergy

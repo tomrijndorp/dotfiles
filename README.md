@@ -13,3 +13,7 @@ Wunderlist
 Unreal Engine
 iTerm2
 Steam
+
+## Current issues
+The stock Ubuntu bashrc contains quite a bit of logic and it's probably there for a reason. Might want to find a
+way to have that thing remain and have it call your entrypoint instead.
