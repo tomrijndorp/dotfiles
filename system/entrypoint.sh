@@ -41,6 +41,7 @@ fi
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 export GOPATH="$HOME/.go"
 export GOBIN="$GOPATH/bin"
+[[ -n $LINUX ]] && export PATH=$PATH:$HOME/.local/bin/
 
 # Extend the path for user-install pip packages on mac
 [[ -n $MAC ]] && PATH=$PATH:$HOME/Library/Python/3.7/bin
@@ -56,7 +57,7 @@ dprint $THIS_DIR
 . $THIS_DIR/functions.sh
 
 # Bash completion (for git)
-[[ -f $(brew --prefix)/etc/bash_completion ]] && . $(brew --prefix)/etc/bash_completion
+[[ -n $MAC && -f $(brew --prefix)/etc/bash_completion ]] && . $(brew --prefix)/etc/bash_completion
 
 #
 # Powerline clone

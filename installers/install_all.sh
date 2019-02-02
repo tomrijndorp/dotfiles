@@ -29,6 +29,25 @@ install_powerline_fonts() {
     cd $BACK
 }
 
+install_sublime() {
+    if [[ -n $LINUX ]]; then
+        dprint "Installing sublime..."
+        wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+        echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+        sudo apt-get update
+        sudo apt-get install sublime-text
+    fi
+}
+
+install_synergy() {
+    if [[ -n $LINUX ]]; then
+        dprint "Installing synergy..."
+        TMP=mktemp
+        curl https://symless.com/synergy/download/direct?platform=ubuntu&architecture=x64 > $TMP
+        sudo apt install -f $TMP
+    fi
+}
+
 if [[ -n $MAC ]]; then
     install_homebrew
     install_powerline_fonts
@@ -57,10 +76,21 @@ if [[ -n $MAC ]]; then
 fi
 
 if [[ -n $LINUX ]]; then
-    /bin/true
+    sudo apt install -y --no-install-recommends \
+        apt-transport-https \
+        docker-ce \
+        gitk \
+        python3 \
+        python3-pip \
+        shellcheck \
+        vim-gtk3
+
+    install_sublime
+    install_synergy
 fi
 
 # Install python packages
 pip3 install --user \
     numpy \
-    bokeh
+    bokeh \
+    yamllint
