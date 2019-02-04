@@ -1,5 +1,6 @@
 # dotfiles
-If you're not me, this is probably not for you. There are better starting points for using dotfiles I'm sure!
+If you're not me, this is probably not for you. There are better starting points for using dotfiles
+I'm sure!
 
 ## Notes to self
 Easy-install:
@@ -12,8 +13,13 @@ XCode
 Wunderlist
 Unreal Engine
 iTerm2
+Reaper
 Steam
 
 ## Current issues
-The stock Ubuntu bashrc contains quite a bit of logic and it's probably there for a reason. Might want to find a
-way to have that thing remain and have it call your entrypoint instead.
+The stock Ubuntu bashrc contains quite a bit of logic and it's probably there for a reason. Might
+want to find a way to have that thing remain and have it call your entrypoint instead.
+
+## TODOs
+- Automatically set zsh as default shell: modify /etc/shells
+- Sublime snippets and configuration, packages, etc

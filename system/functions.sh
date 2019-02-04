@@ -1,3 +1,6 @@
+# Note that if you call these from a subshell, you may not have access to them if they weren't
+# sourced explicitly. Consider creating a script in bin instead.
+
 prune_docker_images()
 {
     docker images | grep -E '((weeks)|(months))\sago' | awk '{print $3}' | xargs docker rmi

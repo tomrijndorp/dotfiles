@@ -3,32 +3,21 @@
 # Or source it from that file.
 
 # Reference this repo directory
-export DOTFILES=$HOME/.dotfiles
+export DOTFILES=~/.dotfiles
 
 # Set to any non-empty string for debug prints
 export DEBUG=${DEBUG-''}
-echo "DEBUG is set to $DEBUG"
 
 # Use colors in the terminal
 export CLICOLOR=1
 
 #
-# Debug logging
-#
-dprint() {
-    if [[ -n $DEBUG ]]; then echo -e "\033[1m[DEBUG] $1\033[0m"; fi
-}
-export -f dprint
-
-#
 # Easier-to-remember platform checks
 #
 if [[ $(uname) == Darwin ]]; then
-    dprint "setting MAC"
     export MAC="I'm a mac!"
     export LINUX=''
 else
-    dprint "setting LINUX"
     export MAC=''
     export LINUX="I'm a Linux box"
 fi
@@ -46,9 +35,9 @@ THIS_DIR=~/.dotfiles/system  # Provide sensible default in case commands below f
 # Call other files
 #
 source_and_log() {
-	dprint "Sourcing $1..." && . "$1"
+	if [[ -n $DEBUG ]]; then echo -e "\033[1mSourcing $1...\033[0m"; fi
+    . "$1"
 }
-dprint "THIS_DIR = $THIS_DIR"
 source_and_log "$THIS_DIR/alias.sh"
 source_and_log "$THIS_DIR/functions.sh"
 source_and_log "$THIS_DIR/environment.sh"
@@ -64,6 +53,6 @@ command -v powerline-daemon > /dev/null && {
 	powerline-daemon -q
 	export POWERLINE_BASH_CONTINUATION=1
 	export POWERLINE_BASH_SELECT=1
-	[[ -n $MAC ]] && [[ $SHELL =~ bash ]] && . ~/Library/Python/3.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh
-	[[ -n $MAC ]] && [[ $SHELL =~ zsh ]] && . ~/Library/Python/3.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
+	if [[ -n $MAC ]] && [[ $SHELL =~ bash ]]; then . ~/Library/Python/3.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh; fi
+	if [[ -n $MAC ]] && [[ $SHELL =~ zsh ]]; then . ~/Library/Python/3.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh; fi
 }

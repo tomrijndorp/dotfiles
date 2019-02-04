@@ -40,11 +40,25 @@ install_powerline() {
 
 install_ohmyzsh() {
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    
+    # At this point, it seems likely that we'd want to switch to zsh as the default login shell:
+    local ZSH
+    ZSH=$(command -v zsh)
+    [[ -z $ZSH ]] && dprint "No zsh install found" && exit 0
+    if grep -q "$ZSH" /etc/shells; then
+        dprint "Adding your custom zsh at $ZSH to /etc/shells..."
+        echo "$ZSH" | sudo tee -a /etc/shells
+    fi
+    if [[ $SHELL != "$ZSH" ]]; then
+        dprint "Setting zsh as your default shell..."
+        chsh -s "$ZSH"
+    fi
 }
 
 configure_vim() {
     ln -sf "$DOTFILES/config/vim/.vimrc" ~/.vimrc
 }
+
 
 install_sublime() {
     if [[ -n $LINUX ]]; then
@@ -53,6 +67,13 @@ install_sublime() {
         echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
         sudo apt-get update
         sudo apt-get install sublime-text
+    fi
+
+    if [[ -n $MAC ]]; then
+        # You'll have to download Sublime manually
+        # Create a symlink to this repo for all user settings
+        mkdir -p ~/Library/Application\ Support/Sublime\ Text\ 3/Packages
+        ln -sf "$DOTFILES/config/sublime/" ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
     fi
 }
 
@@ -83,10 +104,12 @@ if [[ -n $MAC ]]; then
         the_silver_searcher \
         tree \
         python3 \
-        vim --with-python3
+        vim
 
     # Add path for user-installed Python packages
     export PATH="$PATH:$HOME/Library/Python/3.7/bin"
+
+    install_sublime
 fi
 
 if [[ -n $LINUX ]]; then
@@ -111,7 +134,9 @@ fi
 # Install python packages
 pip3 install --user \
     bokeh \
+    holoviews \
     numpy \
+    pandas \
     yamllint
 
 # Re-source

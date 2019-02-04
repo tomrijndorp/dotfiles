@@ -6,9 +6,7 @@
 # We just re-set PATH here in case anybody messes with it, and such that we don't keep appending when
 # we source this file multiple times. Note: generally, I want access to applications installed using
 # Homebrew first. It installs in /usr/local/bin.
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-# Add our own utilities from this repo
-export PATH=$PATH:$THIS_DIR/bin
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$DOTFILES/system/bin
 export GOPATH="$HOME/.go"
 export GOBIN="$GOPATH/bin"
 

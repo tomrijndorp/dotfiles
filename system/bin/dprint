@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+#
+# Debug logging
+#
+if [[ $# -eq 1 && -n $DEBUG ]]; then echo -e "\033[1m[DEBUG] $1\033[0m"; fi
