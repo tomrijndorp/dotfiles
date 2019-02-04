@@ -1,29 +1,29 @@
 {
-    "always_show_minimap_viewport": true,
-    "bold_folder_labels": false,
-    "caret_extra_bottom": 2,
-    "caret_extra_top": 2,
-    "caret_extra_width": 2,
-    "caret_style": "phase",
-    "color_scheme": "Packages/Materialize/schemes/Material One Dark.tmTheme",
-    "drag_text": false,
-    "ignored_packages":
-    [
-        "Vintage"
-    ],
-    "line_padding_bottom": 1,
-    "line_padding_top": 1,
-    "material_theme_accent_indigo": true,
-    "material_theme_bold_tab": true,
-    "material_theme_compact_panel": true,
-    "material_theme_compact_sidebar": true,
-    "material_theme_disable_folder_animation": true,
-    "material_theme_small_statusbar": true,
-    "material_theme_small_tab": false,
-    "rulers":
-    [
-        100
-    ],
-    "theme": "Material One Dark.sublime-theme",
-    "translate_tabs_to_spaces": true
+	"always_show_minimap_viewport": true,
+	"bold_folder_labels": false,
+	"caret_extra_bottom": 2,
+	"caret_extra_top": 2,
+	"caret_extra_width": 2,
+	"caret_style": "phase",
+	"color_scheme": "Packages/Materialize/schemes/Material One Dark.tmTheme",
+	"drag_text": false,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"line_padding_bottom": 1,
+	"line_padding_top": 1,
+	"material_theme_accent_indigo": true,
+	"material_theme_bold_tab": true,
+	"material_theme_compact_panel": true,
+	"material_theme_compact_sidebar": true,
+	"material_theme_disable_folder_animation": true,
+	"material_theme_small_statusbar": true,
+	"material_theme_small_tab": false,
+	"rulers":
+	[
+		100
+	],
+	"theme": "Material One Dark.sublime-theme",
+	"translate_tabs_to_spaces": true
 }

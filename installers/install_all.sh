@@ -74,6 +74,10 @@ install_sublime() {
         # Create a symlink to this repo for all user settings
         mkdir -p ~/Library/Application\ Support/Sublime\ Text\ 3/Packages
         ln -sf "$DOTFILES/config/sublime/" ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+    elif [[ -n $LINUX ]]; then
+        #statements
+        mkdir -p ~/.config/sublime-text-3/Packages/
+        ln -sf "$DOTFILES/config/sublime/" ~/.config/sublime-text-3/Packages/User
     fi
 }
 
@@ -115,8 +119,10 @@ fi
 if [[ -n $LINUX ]]; then
     sudo apt install -y --no-install-recommends \
         apt-transport-https \
+        chromium-browser \
         curl \
         docker-ce \
+        fonts-powerline \
         gdb \
         gitk \
         less \
@@ -124,9 +130,13 @@ if [[ -n $LINUX ]]; then
         python3-pip \
         scons \
         shellcheck \
+        terminator \
         vim-gtk3 \
-        wget
+        wget \
+        zsh
 
+    install_ohmyzsh
+    install_powerline
     install_sublime
     install_synergy
 fi

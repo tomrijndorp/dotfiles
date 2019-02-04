@@ -55,4 +55,5 @@ command -v powerline-daemon > /dev/null && {
 	export POWERLINE_BASH_SELECT=1
 	if [[ -n $MAC ]] && [[ $SHELL =~ bash ]]; then . ~/Library/Python/3.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh; fi
 	if [[ -n $MAC ]] && [[ $SHELL =~ zsh ]]; then . ~/Library/Python/3.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh; fi
+	if [[ -n $LINUX ]] && [[ $SHELL =~ zsh ]]; then . ~/.local/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh; fi
 }

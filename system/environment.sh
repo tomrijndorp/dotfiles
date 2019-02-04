@@ -21,6 +21,6 @@ export GOBIN="$GOPATH/bin"
 [[ -n $LINUX ]] && {
 	PATH=$PATH:$HOME/.local/bin/
 	# XDG_CONFIG_DIRS: Well-behaved applications will search these folders for configuration data
-	export XDG_CONFIG_DIRS=$DOTFILES/config:~/.config
+	# export XDG_CONFIG_DIRS=$DOTFILES/config:~/.config
 }
 
