@@ -1,4 +1,13 @@
-// These settings override both User and Default settings for the Python syntax
 {
-    "rulers": [79],
+	"extensions":
+	[
+		"py",
+		"py3",
+		"pyw"
+	],
+	"rulers":
+	[
+		79
+	],
+	"translate_tabs_to_spaces": true
 }

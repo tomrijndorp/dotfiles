@@ -10,6 +10,8 @@ export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$DOTFILES/system/bin
 export GOPATH="$HOME/.go"
 export GOBIN="$GOPATH/bin"
 
+# Environment for less; enable raw ANSI characters and case insensitive search
+export LESS=-Ri
 
 # Mac environment
 [[ -n $MAC ]] && {
