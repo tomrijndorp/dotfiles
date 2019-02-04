@@ -1,0 +1,36 @@
+<snippet>
+    <content><![CDATA[
+// Goes into x_impl.hpp / cpp
+class ${1:Name}Impl
+{
+friend class ${1:Name};  // Only ${1:Name} can access anything on ${1:Name}Impl
+private:
+    void foo()
+    {
+        return;
+    }
+};
+
+// Goes into x.hpp
+#include <memory>
+
+class ${1:Name}Impl;
+
+class ${1:Name}
+{
+public:
+    void foo();
+private:
+    std::unique_ptr<${1:Name}Impl> impl_;
+};
+
+// Goes into x.cpp
+void ${1:Name}::foo() { return impl_->foo(); }
+
+]]></content>
+    <description>[TR] PIMPL</description>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>pimpl</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope>source.c++</scope>
+</snippet>

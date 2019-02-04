@@ -1,0 +1,23 @@
+<snippet>
+    <content><![CDATA[
+${1:class} ${2:name}${3: : public}${4: parent/interface}
+{
+public:
+    // delete what you don't need / remove defaults as needed
+    ${2}() = default;
+    ${2}(const ${2}&) = default;
+    ${2}& operator=(const ${2}&) = default;
+    ${2}(${2}&&) = default;
+    ${2}& operator=(${2}&&) = default;
+    ${5:virtual }~$2() = default;
+private:
+    ${6:// members...}
+};
+
+]]></content>
+    <description>[TR] Class</description>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>class</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope>source.c++</scope>
+</snippet>
