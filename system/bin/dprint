@@ -3,4 +3,24 @@
 #
 # Debug logging
 #
-if [[ $# -eq 1 && -n $DEBUG ]]; then echo -e "\033[1m[DEBUG] $1\033[0m"; fi
+if [[ $# -eq 1 && -n $DEBUG ]]; then echo -e "\033[1m[ DEBUG ] $1\033[0m"; fi
+
+# ANSI color codes:
+
+# -----Name-----  FG   BG
+#        Black    30   40
+#        Red      31   41
+#        Green    32   42
+#        Yellow   33   43
+#        Blue     34   44
+#        Magenta  35   45
+#        Cyan     36   46
+#        White    37   47
+# Bright Black    90  100
+# Bright Red      91  101
+# Bright Green    92  102
+# Bright Yellow   93  103
+# Bright Blue     94  104
+# Bright Magenta  95  105
+# Bright Cyan     96  106
+# Bright White    97  107

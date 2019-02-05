@@ -13,6 +13,7 @@ install_homebrew() {
 	dprint "Skipping Homebrew install"
     else
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        gprint "Installed Homebrew"
     fi
 }
 
@@ -29,6 +30,7 @@ install_powerline_fonts() {
     cd ..
     rm -rf fonts
     cd "$BACK"
+    gprint "Installed Powerline fonts"
 }
 
 install_powerline() {
@@ -36,6 +38,7 @@ install_powerline() {
         powerline-status \
         powerline-gitstatus
     ln -sf "$DOTFILES/config/powerline/" ~/.config
+    gprint "Installed Powerline"
 }
 
 install_ohmyzsh() {
@@ -53,10 +56,12 @@ install_ohmyzsh() {
         dprint "Setting zsh as your default shell..."
         chsh -s "$ZSH"
     fi
+    dprint "Installed oh-my-zsh"
 }
 
 configure_vim() {
     ln -sf "$DOTFILES/config/vim/.vimrc" ~/.vimrc
+    dprint ".vimrc linked"
 }
 
 
@@ -79,6 +84,7 @@ install_sublime() {
         mkdir -p ~/.config/sublime-text-3/Packages/
         ln -sf "$DOTFILES/config/sublime/" ~/.config/sublime-text-3/Packages/User
     fi
+    gprint "Sublime installed"
 }
 
 install_synergy() {
@@ -87,6 +93,7 @@ install_synergy() {
         TMP=mktemp
         curl https://symless.com/synergy/download/direct?platform=ubuntu\&architecture=x64 > $TMP
         sudo apt install -f $TMP
+        gprint "Synergy installed"
     fi
 }
 
@@ -109,6 +116,7 @@ if [[ -n $MAC ]]; then
         tree \
         python3 \
         vim
+    gprint "Brew install complete"
 
     # Add path for user-installed Python packages
     export PATH="$PATH:$HOME/Library/Python/3.7/bin"
@@ -134,6 +142,7 @@ if [[ -n $LINUX ]]; then
         vim-gtk3 \
         wget \
         zsh
+    gprint "apt install complete"
 
     install_ohmyzsh
     install_powerline
@@ -148,8 +157,11 @@ pip3 install --user \
     numpy \
     pandas \
     yamllint
+gprint "pip install complete"
 
 # Re-source
+dprint "Re-sourcing entrypoint..."
 . "$DOTFILES/system/entrypoint.sh"
+dprint "done."
 # Note: if the fonts don't seem to be working; you do need to set your terminal
 # application to use a powerline-patched font!
