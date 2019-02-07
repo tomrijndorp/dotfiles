@@ -96,6 +96,6 @@ PATH=$PATH:~/.local/bin
 powerline-daemon -q
 . ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
-. ~/.dotfiles/applications/shell/shell_functions.sh
+. ~/.dotfiles/system/functions.sh
 . ~/toms_utils/tsla_stuff.sh
 

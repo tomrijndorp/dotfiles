@@ -2,14 +2,12 @@
 # Support for includes was added in 1.7.10. To include, add
 [alias]
 	co = checkout
-	br = branch
-[color]
-	branch = auto
+        br = !git branch --sort=committerdate --color=always | tail -n15
 	diff = auto
 	status = auto
 [color "branch"]
 	current = yellow
-	local = blue
+	local = cyan
 	remote = green
 [color "diff"]
 	meta = yellow bold
