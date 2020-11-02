@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+# set -euo pipefail
 
 # Note: this WILL delete files if you had any in these places
 [[ ! -f ~/.gitconfig ]] && {

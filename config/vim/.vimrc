@@ -18,7 +18,7 @@ set nocompatible
 " Attempt to determine the type of a file based on its name and possibly its
 " contents. Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
-filetype indent plugin on
+" filetype indent plugin on
  
 " Enable syntax highlighting
 " syntax on
@@ -165,9 +165,10 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " Powerline
 " Linux
+" let g:powerline_pycmd="py3"
 set rtp+=$HOME/.local/lib/python3.7/site-packages/powerline/bindings/vim/
 " Mac
-set rtp+=$HOME/Library/Python/3.7/lib/python/site-packages/powerline/bindings/vim/
+" set rtp+=$HOME/Library/Python/3.7/lib/python/site-packages/powerline/bindings/vim/
 
 " Always show statusline
 set laststatus=2

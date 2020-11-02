@@ -1,10 +1,15 @@
 # Note: this file is intended to extend your regular .gitconfig file.
 # Support for includes was added in 1.7.10. To include, add
 [alias]
-	co = checkout
-        br = !git branch --sort=committerdate --color=always | tail -n15
-	diff = auto
-	status = auto
+    co = checkout
+    br = !git branch --sort=committerdate --color=always | tail -n15
+    rb = for-each-ref --sort=-committerdate --color=always --count=15 --format='%(refname:short)' refs/heads/
+    last = !git show --stat
+    diff = auto
+    status = auto
+    push-new = !git push --set-upstream origin $(git rev-parse --abbrev-ref @)
+    delete-branch = "!f() { git branch --delete --force "$1" && git push origin --delete "$1"; }; f"
+    files = "!f() { git diff --name-status \"$1^\" \"$1\"; }; f"
 [color "branch"]
 	current = yellow
 	local = cyan
@@ -20,3 +25,9 @@
 	untracked = red
 [push]
 	default = simple
+[diff]
+    tool = meld
+# [difftool]
+#     prompt = false
+[difftool "meld"]
+    cmd = meld "$LOCAL" "$REMOTE"

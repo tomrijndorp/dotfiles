@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -euxo pipefail
 
 # Installer for a clean mac / linux system
 
@@ -47,7 +47,7 @@ install_ohmyzsh() {
     # At this point, it seems likely that we'd want to switch to zsh as the default login shell:
     local ZSH
     ZSH=$(command -v zsh)
-    [[ -z $ZSH ]] && dprint "No zsh install found" && exit 0
+    [[ -z $ZSH ]] && dprint "No zsh install found"
     if grep -q "$ZSH" /etc/shells; then
         dprint "Adding your custom zsh at $ZSH to /etc/shells..."
         echo "$ZSH" | sudo tee -a /etc/shells
@@ -128,8 +128,8 @@ if [[ -n $LINUX ]]; then
     sudo apt install -y --no-install-recommends \
         apt-transport-https \
         chromium-browser \
+        cmake \
         curl \
-        docker-ce \
         fonts-powerline \
         gdb \
         gitk \
@@ -138,22 +138,26 @@ if [[ -n $LINUX ]]; then
         python3-pip \
         scons \
         shellcheck \
+        silversearcher-ag \
         terminator \
-        vim-gtk3 \
+        tmux \
         wget \
+        wmctrl \
+        xdotool \
         zsh
     gprint "apt install complete"
 
-    install_ohmyzsh
+#    install_ohmyzsh
     install_powerline
     install_sublime
-    install_synergy
+#    install_synergy
 fi
 
 # Install python packages
 pip3 install --user \
     bokeh \
     holoviews \
+    mako \
     numpy \
     pandas \
     yamllint

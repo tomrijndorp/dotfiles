@@ -97,5 +97,3 @@ powerline-daemon -q
 . ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
 . ~/.dotfiles/system/functions.sh
-. ~/toms_utils/tsla_stuff.sh
-

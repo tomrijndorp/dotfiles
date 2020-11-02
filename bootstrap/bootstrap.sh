@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-set -euo pipefail
+# set -euo pipefail
+set -x
 
 cd "$HOME"
 git clone https://github.com/tomrijndorp/dotfiles.git .dotfiles
