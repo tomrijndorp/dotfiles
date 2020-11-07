@@ -69,3 +69,18 @@ show_bazel_deps_text()
     bazel query --notool_deps --noimplicit_deps "deps($1)" \
   --output graph
 }
+
+# Do an incremental editor build for unreal (hot reload) -- on OSX
+unrealbuild_osx() {
+    UNR_PATH='/Users/Shared/Epic Games/UE_4.21/'
+    MONO="$UNR_PATH/Engine/Binaries/ThirdParty/Mono/Mac/bin/mono"
+    UBT="$UNR_PATH/Engine/Binaries/DotNET/UnrealBuildTool.exe"
+    # RANDNUM=$(( ( RANDOM % 1000 ) + 1000 ))
+    RANDNUM=42  # I don't think it matters
+    CURR_DIR=`pwd`
+    PROJ_NAME=$(basename ${1%.uproject})
+
+    $MONO $UBT -ModuleWithSuffix=$PROJ_NAME,$RANDNUM Mac Development -TargetType=Editor -Project="$1" -canskiplink "$1"
+
+    # ${UNR_PATH}/Engine/Build/BatchFiles/Linux/RunMono.sh ${UNR_PATH}/Engine/Binaries/DotNET/UnrealBuildTool.exe $PROJ_NAME -Module=$PROJ_NAME $RANDNUM Linux Debug -editorrecompile -canskiplink "${CURR_DIR}/${PROJ_NAME}.uproject" -progress
+}

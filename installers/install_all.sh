@@ -158,8 +158,10 @@ pip3 install --user \
     bokeh \
     holoviews \
     mako \
+    jupytext \
     numpy \
     pandas \
+    pytest \
     yamllint
 gprint "pip install complete"
 

@@ -18,10 +18,44 @@ set nocompatible
 " Attempt to determine the type of a file based on its name and possibly its
 " contents. Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
-" filetype indent plugin on
+filetype off
  
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" Git plugin not hosted on GitHub
+Plugin 'git://git.wincent.com/command-t.git'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+" Plugin 'ascenator/L9', {'name': 'newL9'}
+Plugin 'scrooloose/nerdtree'
+
+Plugin 'flazz/vim-colorschemes'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'wincent/scalpel'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
 " Enable syntax highlighting
-" syntax on
+syntax on
  
  
 "------------------------------------------------------------
@@ -179,5 +213,27 @@ set t_Co=256
 
 " Use the system clipboard by default (note: vim --version should list
 " +clipboard
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
 
+"-------------------------------------------------
+"[TR]
+" colorscheme gruvbox
+" colorscheme tender
+" colorscheme hybrid
+" colorscheme OceanicNext
+" colorscheme molokai
+colorscheme Gruvbox
+
+let mapleader = " "
+nnoremap <leader>w :w<CR>
+nnoremap <leader>rcr :source ~/.vimrc<CR>
+nnoremap <leader>rce :tabedit ~/.vimrc<CR>
+nnoremap <silent> <leader><CR> :nohlsearch<CR>
+
+nnoremap <silent> <leader>t :NERDTreeToggle<CR>
+
+" Helpers for tmux
+nnoremap <leader>rcte :tabedit ~/.tmux.conf<CR>
+
+"CtrlP config
+let g:ctrlp_working_path_mode = 'ra'

@@ -9,7 +9,10 @@
 	"drag_text": false,
 	"ignored_packages":
 	[
-		"Vintage"
+		"A File Icon",
+		"Pretty JSON",
+		"Vintage",
+		"zzz A File Icon zzz"
 	],
 	"line_padding_bottom": 1,
 	"line_padding_top": 1,
@@ -24,6 +27,7 @@
 	[
 		100
 	],
+	"scroll_past_end": true,
 	"theme": "Material One Dark.sublime-theme",
 	"translate_tabs_to_spaces": true
 }

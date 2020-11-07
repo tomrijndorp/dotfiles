@@ -11,18 +11,18 @@
     delete-branch = "!f() { git branch --delete --force "$1" && git push origin --delete "$1"; }; f"
     files = "!f() { git diff --name-status \"$1^\" \"$1\"; }; f"
 [color "branch"]
-	current = yellow
-	local = cyan
-	remote = green
+    current = yellow
+    local = cyan
+    remote = green
 [color "diff"]
-	meta = yellow bold
-	frag = white bold
-	old = red
-	new = green
+    meta = yellow bold
+    frag = white bold
+    old = red
+    new = green
 [color "status"]
-	added = green
-	changed = yellow
-	untracked = red
+    added = green
+    changed = yellow
+    untracked = red
 [push]
 	default = simple
 [diff]
