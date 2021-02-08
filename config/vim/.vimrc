@@ -184,12 +184,12 @@ set expandtab
  
 " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
 " which is the default
-map Y y$
+nnoremap Y y$
  
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
 nnoremap <C-L> :nohl<CR><C-L>
- 
+
 "------------------------------------------------------------
 " Git commit messages
 au FileType gitcommit setlocal tw=72
@@ -224,6 +224,10 @@ set t_Co=256
 " colorscheme molokai
 colorscheme Gruvbox
 
+" Nicer redo
+nnoremap U :redo<CR>
+ 
+
 let mapleader = " "
 nnoremap <leader>w :w<CR>
 nnoremap <leader>rcr :source ~/.vimrc<CR>
@@ -237,3 +241,4 @@ nnoremap <leader>rcte :tabedit ~/.tmux.conf<CR>
 
 "CtrlP config
 let g:ctrlp_working_path_mode = 'ra'
+
