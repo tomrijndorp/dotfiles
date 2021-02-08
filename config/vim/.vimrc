@@ -4,7 +4,6 @@
 "              newbie, basing your first .vimrc on this file is a good choice.
 "              If you're a more advanced user, building your own .vimrc based
 "              on this file is still a good idea.
- 
 "------------------------------------------------------------
 " Features {{{1
 "
@@ -222,14 +221,15 @@ set t_Co=256
 " colorscheme hybrid
 " colorscheme OceanicNext
 " colorscheme molokai
-colorscheme Gruvbox
+" colorscheme Gruvbox
 
 " Nicer redo
 nnoremap U :redo<CR>
  
 
 let mapleader = " "
-nnoremap <leader>w :w<CR>
+" Note: temporarily always source vimrc so I can do some quick testing
+nnoremap <silent> <leader>w :w<CR>:source ~/.vimrc<CR>
 nnoremap <leader>rcr :source ~/.vimrc<CR>
 nnoremap <leader>rce :tabedit ~/.vimrc<CR>
 nnoremap <silent> <leader><CR> :nohlsearch<CR>
@@ -242,3 +242,21 @@ nnoremap <leader>rcte :tabedit ~/.tmux.conf<CR>
 "CtrlP config
 let g:ctrlp_working_path_mode = 'ra'
 
+
+
+"------------------------------
+" Some more tests
+
+
+" functions
+function SetTextWidthTo30()
+    set textwidth=30
+    set colorcolumn=30
+endfunction
+
+" function arguments
+function SetTextWidthTo(width)
+    " use let instead of set c to set option values
+    let &textwidth=a:width
+    let &colorcolumn=a:width
+endfunction
