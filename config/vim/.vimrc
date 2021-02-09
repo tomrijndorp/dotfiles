@@ -260,3 +260,20 @@ function SetTextWidthTo(width)
     let &textwidth=a:width
     let &colorcolumn=a:width
 endfunction
+
+function DoMagic()
+    " If nothing is selected, select the current word
+    if mode() ==# "n"
+        " The question is how could we not be in normal mode at this point...
+        echom "We're in normal mode!"
+        " Select the word
+        execute "normal! viw"
+    else
+        echom "We're not in normal mode!"
+    endif
+    " execute "normal! viw"
+endfunction
+
+nnoremap <leader>m :call DoMagic()<CR>
+nnoremap <leader>c :echo ''<CR>
+
