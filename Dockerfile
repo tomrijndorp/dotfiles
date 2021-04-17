@@ -7,6 +7,7 @@ COPY . /home/$DUSER/.dotfiles
 RUN \
     useradd $DUSER && \
     usermod -aG sudo $DUSER && \
+    usermod -s /bin/zsh $DUSER && \
     echo "$DUSER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$DUSER \
         && chmod 0440 /etc/sudoers.d/$DUSER && \
     chown -R $DUSER:$DUSER /home/$DUSER/
