@@ -5,25 +5,37 @@ set -euo pipefail
 # Uses the installers under ../installers
 gprint Yo.
 
+UNATTENDED=
+echo $-
+if [[ $- != *i* ]]; then UNATTENDED=1; fi
+
+if [[ $UNATTENDED -eq 1 ]]; then
+    wprint "*** UNATTENDED INSTALL ***\nContinuing in 3 seconds..."
+    sleep 3
+fi
+
 ALL_TARGETS=$(cd $DOTFILES/installers && find . -type f | cut -d '/' -f 2 | awk '!/all/ { print }' | sort)
 WHITELIST_FILE=/tmp/whitelist
 WHITELIST_BK_FILE=/tmp/whitelist_backup
+
 echo "$ALL_TARGETS" > $WHITELIST_FILE
-echo -e "I have written a whitelist file to $WHITELIST_FILE.
-It contains all the targets that can be installed.
-Remove the targets that you don't want to install.
-When you continue, I'll read the file and install
-those targets.
+if [[ $UNATTENDED -ne 1 ]]; then
+    echo -e "I have written a whitelist file to $WHITELIST_FILE.
+    It contains all the targets that can be installed.
+    Remove the targets that you don't want to install.
+    When you continue, I'll read the file and install
+    those targets.
 
-When you continue, I'll store the whitelist you
-modified in $WHITELIST_BK_FILE.
+    When you continue, I'll store the whitelist you
+    modified in $WHITELIST_BK_FILE.
 
-Continue? [y/N]\n"
-read -rn1 ANS
-echo -e "\n"
-if [[ "$ANS" != 'y' ]]; then
-    echo Fair enough, not installing anything.
-    exit 0
+    Continue? [y/N]\n"
+    read -rn1 ANS
+    echo -e "\n"
+    if [[ "$ANS" != 'y' ]]; then
+        echo Fair enough, not installing anything.
+        exit 0
+    fi
 fi
 
 # Make the backup
@@ -32,17 +44,21 @@ cp $WHITELIST_FILE $WHITELIST_BK_FILE
 # Read the whitelist
 WHITELIST=$(cat $WHITELIST_FILE)
 
-echo -e "Just to confirm. If you continue, these things
-will be installed:
+if [[ $UNATTENDED -ne 1 ]]; then
+    echo -e "Just to confirm. If you continue, these things
+    will be installed:
 
-$(awk '{ print "- ", $0; }' $WHITELIST_FILE)
+    $(awk '{ print "- ", $0; }' $WHITELIST_FILE)
 
-Continue? [y/N]\n"
-read -rn1 ANS
-echo -e "\n"
-if [[ "$ANS" != 'y' ]]; then
-    echo Fair enough, not installing anything.
-    exit 0
+    Continue? [y/N]\n"
+    read -rn1 ANS
+    echo -e "\n"
+    if [[ "$ANS" != 'y' ]]; then
+        echo Fair enough, not installing anything.
+        exit 0
+    fi
+else
+    echo -e "Installing\n\n$(awk '{ print "- ", $0; }' $WHITELIST_FILE)\n"
 fi
 
 install_wrapper() {

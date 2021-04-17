@@ -2,7 +2,7 @@
 
 if [[ -z $LINUX ]]; then return; fi
 
-sudo apt install -y --no-install-recommends \
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
     apt-transport-https \
     chromium-browser \
     cmake \
@@ -13,7 +13,6 @@ sudo apt install -y --no-install-recommends \
     less \
     python3 \
     python3-pip \
-    scons \
     shellcheck \
     silversearcher-ag \
     terminator \
