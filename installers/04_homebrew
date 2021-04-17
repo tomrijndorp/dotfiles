@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ -z $MAC ]]; then return; fi
+
+# You may be asked for a password.
+if [[ -f /usr/local/bin/brew ]]; then
+    echo "Skipping Homebrew install; already installed"
+else
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi

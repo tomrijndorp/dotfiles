@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# set -euo pipefail
+
+# Note: this WILL delete files if you had any in these places
+TARGET=$HOME/.gitconfig
+if [[ -f $TARGET ]]; then
+    wprint "$TARGET found; making a backup at $TARGET.backup"
+    mv "$TARGET" "$TARGET.backup"
+fi
+
+echo -e "[include]
+    # Dotfiles repo has a good starting point for git config
+    path = $DOTFILES/applications/git/.gitconfig
+    # Use .gitconfig_local for config that should only be stored on this machine.
+    path = ~/.gitconfig_local
+" > "$TARGET"
+
+# On Mac, add a global .gitexcludes file to get rid of all the DS_Store crap everywhere
+if [[ -n $MAC && ! -f $HOME/.gitexcludes ]]; then
+    # Assume we don't have a .gitexcludes yet
+    ln -sf "$DOTFILES/applications/git/.gitexcludes" "$HOME/.gitexcludes"
+fi

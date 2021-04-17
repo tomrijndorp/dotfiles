@@ -1,0 +1,29 @@
+#!/bin/bash
+set -euo pipefail
+
+DOTFILES=${DOTFILES:-~/.dotfiles}
+. "$DOTFILES/system/entrypoint.sh"
+
+if [[ $# -eq 0 ]]; then
+cat <<END
+Usage:
+    dot install <TARGET>    Installs the <TARGET>.
+                            You need a script under $DOTFILES/installers for this to work.
+END
+exit 0
+fi
+
+if [[ $1 == install ]]; then
+    TARGET=${2:-null}
+    if [[ $TARGET == null ]]; then
+        eprint Usage: dot install TARGET
+        echo -e "Options:\n$(cd $DOTFILES/installers && find . -type f | cut -d '/' -f2 | awk '{ print "- ", $0; }')"
+        exit 1
+    fi
+
+    if [[ -f "$DOTFILES/installers/$TARGET" ]]; then
+        dprint installing "$TARGET"...
+        . "$DOTFILES/installers/$TARGET"
+        dprint "done."
+    fi
+fi

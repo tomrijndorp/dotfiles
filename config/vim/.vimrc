@@ -220,8 +220,8 @@ set t_Co=256
 " colorscheme tender
 " colorscheme hybrid
 " colorscheme OceanicNext
-" colorscheme molokai
-" colorscheme Gruvbox
+colorscheme monokai
+colorscheme gruvbox
 
 " Nicer redo
 nnoremap U :redo<CR>
@@ -261,19 +261,56 @@ function SetTextWidthTo(width)
     let &colorcolumn=a:width
 endfunction
 
-function DoMagic()
+" Do some magic.
+" mode_arg: probably because I'm a vim noob, I don't understand why even when
+" I call this from visual (line) mode, mode() still returns 'n'. So I'm
+" manually providing this argument ('v' if visual, 'V' if line visual) to know
+" what we're dealing with.
+function DoMagic(mode_arg) abort
     " If nothing is selected, select the current word
-    if mode() ==# "n"
+    echom mode()
+    echom visualmode()
+    if a:mode_arg ==# "n"
         " The question is how could we not be in normal mode at this point...
         echom "We're in normal mode!"
+        echo "Cursor position: " . join(getcurpos(), ',')
         " Select the word
-        execute "normal! viw"
+        execute "normal! viw3j"
     else
+        " Visual mode; keep the current selection
         echom "We're not in normal mode!"
     endif
-    " execute "normal! viw"
 endfunction
 
-nnoremap <leader>m :call DoMagic()<CR>
-nnoremap <leader>c :echo ''<CR>
+" There's some extra nastiness when it comes to executing things in normal
+" mode when you are in a different mode. You'll need to :execute the command,
+" using normal!. But also, because e.g. vnoremap will parse all the <CR>
+" characters, you need to use \<lt> to escape them. Then you close the string,
+" and then you add another <CR> to actually enter that whole command.
+" Tested example (try it):
+" nnoremap <leader>m :execute "normal! :set number!\<lt>CR>"<CR>
 
+nnoremap <leader>m :call DoMagic('n')<CR>
+" When you have a visual selection and then type ':' to start a command, vim
+" appends some range indicator like '<,'>. Ctrl+U clears that (when you're in
+" command mode).
+vnoremap <leader>m :<C-U>call DoMagic(visualmode())<CR>
+
+" How would I implement Ctrl+D right now given my current Vim knowledge?
+" Probably something like creating a macro and then replaying it
+" Try it out using commands instead of writing a function initially
+
+" https://vi.stackexchange.com/questions/7149/mapping-a-command-in-visual-mode-results-in-error-e481-no-range-alllowed 
+
+function GetVisualSelection() abort
+    " Why is this not a built-in Vim script function?!
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
+endfunction

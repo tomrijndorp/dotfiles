@@ -1,5 +1,9 @@
 # Note: this file is intended to extend your regular .gitconfig file.
 # Support for includes was added in 1.7.10. To include, add
+# [include]
+#     path = <path to this file>
+# in ~/.gitconfig.
+# As part of this dotfiles repo, this has already been done.
 [alias]
     co = checkout
     br = !git branch --sort=committerdate --color=always | tail -n15
@@ -24,7 +28,7 @@
     changed = yellow
     untracked = red
 [push]
-	default = simple
+    default = simple
 [diff]
     tool = meld
 # [difftool]

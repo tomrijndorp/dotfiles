@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+#
+# Info logging
+#
+echo -e "\033[36;1m[ INFO ] $@\033[0m"

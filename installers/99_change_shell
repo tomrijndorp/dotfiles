@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [[ $SHELL != /bin/zsh ]]; then
+    iprint "Changing the default shell to /bin/zsh. You may need to enter password."
+    chsh --shell /bin/zsh "$USER"
+fi

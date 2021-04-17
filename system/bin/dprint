@@ -3,7 +3,7 @@
 #
 # Debug logging
 #
-if [[ $# -eq 1 && -n $DEBUG ]]; then echo -e "\033[1m[ DEBUG ] $1\033[0m"; fi
+if [[ -n $DEBUG ]]; then echo -e "\033[1m[ DEBUG ] $@\033[0m"; fi
 
 # ANSI color codes:
 

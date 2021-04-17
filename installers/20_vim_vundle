@@ -1,0 +1,24 @@
+#!/bin/bash
+
+TARGET_PATH=$HOME/.vim/bundle/Vundle.vim
+if [[ -d $TARGET_PATH  ]]; then
+    echo "Skipping Vundle install; path at $TARGET_PATH already exists."
+else
+    dprint Installing Vundle...
+    # 1. Install Vundle
+    # 2. Call Pluginstall inside vim, without interaction
+    git clone https://github.com/VundleVim/Vundle.vim.git "$TARGET_PATH"
+fi
+
+# Symlink the .vimrc file
+if [[ -f ~/.vimrc ]]; then
+    #shellcheck disable=SC2088
+    wprint "~/.vimrc found; making a backup at ~/.vimrc.backup"
+    mv ~/.vimrc ~/.vimrc.backup
+fi
+ln -sf "$DOTFILES/config/vim/.vimrc" ~/.vimrc
+
+# Install the plugins listed in the ~/.vimrc file
+vim +PluginInstall +qall
+
+echo done.
