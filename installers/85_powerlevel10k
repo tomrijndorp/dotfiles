@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# 1. Install fonts
+if [[ -n $MAC ]]; then
+    brew tap homebrew/cask-fonts > /dev/null
+    brew reinstall --cask font-hack-nerd-font > /dev/null
+else
+mkdir -p ~/.local/share/fonts
+cd ~/.local/share/fonts && \
+    curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete.otf" \
+    https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
+fi
+
+# 2. Install plugin
+TARGET=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+if [[ -d $TARGET ]]; then
+    echo "Skipping powerlevel 10k git repo; already present at $TARGET"
+else
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$TARGET"
+
+    # Note, plugin needs to be activated by setting ZSH_THEME in ~/.zshrc, but
+    # since we symlink that to the ~/.zshrc in this repo, it is already set :)
+fi

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [[ -n $LINUX ]]; then return; fi
+
+# We possibly need these for Homebrew's Python install, and possibly other stuff. Can't hurt.
+
+# This command will trigger the install (using the window manager), or print a
+# warning that they're already installed. In that case, we just gobble the output.
+MSG=$(xcode-select --install 2>&1) || true
+if [[ $MSG == *already\ installed* ]]; then
+    # that's fine
+    iprint "xcode command line tools already installed."
+    true
+elif [[ $MSG == *install\ requested ]]; then
+    # that's also fine
+    iprint "You should see a popup asking you to continue."
+    true
+else
+    eprint "$MSG"
+fi

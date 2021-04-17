@@ -1,0 +1,12 @@
+#!/bin/bash
+
+pip3 install --user \
+    bokeh \
+    jupytext \
+    mako \
+    numpy \
+    pandas \
+    pytest \
+    pyyaml \
+    yamllint \
+    > /dev/null

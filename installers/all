@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Installer for a clean mac / linux system
+# Uses the installers under ../installers
+gprint Yo.
+
+ALL_TARGETS=$(cd $DOTFILES/installers && find . -type f | cut -d '/' -f 2 | awk '!/all/ { print }' | sort)
+WHITELIST_FILE=/tmp/whitelist
+WHITELIST_BK_FILE=/tmp/whitelist_backup
+echo "$ALL_TARGETS" > $WHITELIST_FILE
+echo -e "I have written a whitelist file to $WHITELIST_FILE.
+It contains all the targets that can be installed.
+Remove the targets that you don't want to install.
+When you continue, I'll read the file and install
+those targets.
+
+When you continue, I'll store the whitelist you
+modified in $WHITELIST_BK_FILE.
+
+Continue? [y/N]\n"
+read -rn1 ANS
+echo -e "\n"
+if [[ "$ANS" != 'y' ]]; then
+    echo Fair enough, not installing anything.
+    exit 0
+fi
+
+# Make the backup
+cp $WHITELIST_FILE $WHITELIST_BK_FILE
+
+# Read the whitelist
+WHITELIST=$(cat $WHITELIST_FILE)
+
+echo -e "Just to confirm. If you continue, these things
+will be installed:
+
+$(awk '{ print "- ", $0; }' $WHITELIST_FILE)
+
+Continue? [y/N]\n"
+read -rn1 ANS
+echo -e "\n"
+if [[ "$ANS" != 'y' ]]; then
+    echo Fair enough, not installing anything.
+    exit 0
+fi
+
+install_wrapper() {
+    iprint "Installing $1..."
+    set +e
+    dot install $1
+    RET=$?
+    set -e
+    if [[ $RET -ne 0 ]]; then
+        eprint "Failed to install $1."
+        eprint ""
+        eprint "Inspect $DOTFILES/installers/$1."
+        eprint ""
+        eprint "Fix and run the whole script again. Everything's reentrant anyway."
+        exit 1
+    else
+        gprint "Done installing $1.\n"
+    fi
+}
+
+for TARGET in $WHITELIST; do
+    install_wrapper "$TARGET"
+done
+
+iprint "Done!
+Okay, this is looking good :) The following things still might need to happen:
+
+- Check that tmux works
+- Change your default shell to zsh using chsh. You'll have to log out to make it work.
+- Configure powerlevel10k. I haven't done that here because configuration turns out to
+  be pretty machine specific so it's better to just run through the setup.
+  
+  $ p10k configure
+  
+- ..."

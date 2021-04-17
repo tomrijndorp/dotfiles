@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
-# set -euo pipefail
-set -x
+set -euo pipefail
+
+TARGET_DIR=${TARGET_DIR:-$HOME/.dotfiles}
+
+if [[ ! $(which git) ]]; then
+	echo "Git is not installed; cannot continue."
+	exit 1
+fi
 
 cd "$HOME"
-git clone https://github.com/tomrijndorp/dotfiles.git .dotfiles
+echo "Cloning into .dotfiles..."
+git clone https://github.com/tomrijndorp/dotfiles.git "$TARGET_DIR"
 cd .dotfiles
 
 # Source the entrypoint script so we have an environment with some features we know

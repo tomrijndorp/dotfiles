@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo "I'm a dummy installer to show you that this works"

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+TARGET=$HOME/.tmux.conf
+if [[ -f $TARGET ]]; then
+    wprint "$TARGET found; making a backup at $TARGET.backup"
+    mv "$TARGET" "$TARGET.backup"
+fi
+ln -sf "$DOTFILES/applications/tmux/.tmux.conf" "$TARGET"

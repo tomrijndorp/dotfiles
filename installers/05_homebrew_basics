@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [[ -z $MAC ]]; then return; fi
+
+brew install \
+    git \
+    bash-completion \
+    jupyter \
+    htop \
+    shellcheck \
+    the_silver_searcher \
+    tmux \
+    tree \
+    python3 \
+    vim

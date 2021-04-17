@@ -5,6 +5,11 @@
 # Reference this repo directory
 export DOTFILES=~/.dotfiles
 
+export DF_PATH_PRE_FILE=${DF_PATH_PRE_FILE:-$HOME/.path_pre}
+export DF_PATH_POST_FILE=${DF_PATH_POST_FILE:-$HOME/.path_post}
+export DF_ZSHRC_HOOK_FILE=${DF_ZSHRC_HOOK_FILE:-$HOME/.zshrc_hook.sh}
+export DF_INSTALL_VUNDLE=${DF_INSTALL_VUNDLE:-1}
+
 # Set to any non-empty string for debug prints
 export DEBUG=${DEBUG-''}
 
@@ -38,23 +43,13 @@ source_and_log() {
 	if [[ -n $DEBUG ]]; then echo -e "\033[1mSourcing $1...\033[0m"; fi
     . "$1"
 }
+source_and_log_if_exist() {
+    if [[ -f $1 ]]; then source_and_log "$1"; fi
+}
 source_and_log "$THIS_DIR/alias.sh"
 source_and_log "$THIS_DIR/functions.sh"
 source_and_log "$THIS_DIR/environment.sh"
+source_and_log_if_exist "$DF_ZSHRC_HOOK_FILE"
 
 # Bash completion (for git on Mac)
-[[ $SHELL =~ bash && -n $MAC && -f $(brew --prefix)/etc/bash_completion ]] && . "$(brew --prefix)/etc/bash_completion"
-
-#
-# Powerline
-#
-command -v powerline-daemon > /dev/null && {
-	# powerline found
-	powerline-daemon -q
-	export POWERLINE_BASH_CONTINUATION=1
-	export POWERLINE_BASH_SELECT=1
-	if [[ -n $MAC ]] && [[ $SHELL =~ bash ]]; then . ~/Library/Python/3.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh; fi
-	if [[ -n $MAC ]] && [[ $SHELL =~ zsh ]]; then . ~/Library/Python/3.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh; fi
-	if [[ -n $LINUX ]] && [[ $SHELL =~ zsh ]]; then . ~/.local/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh; fi
-}
-
+# [[ $SHELL =~ bash && -n $MAC && -f $(brew --prefix)/etc/bash_completion ]] && . "$(brew --prefix)/etc/bash_completion"

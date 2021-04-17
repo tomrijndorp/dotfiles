@@ -2,12 +2,12 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/trijndorp/.oh-my-zsh
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="dogenpunk"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -92,8 +92,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-PATH=$PATH:~/.local/bin
-powerline-daemon -q
-. ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
+. ~/.dotfiles/system/entrypoint.sh
 
-. ~/.dotfiles/system/functions.sh
+# Call into the hook file that is user-specified and not part of this repo
+# because it shouldn't be versioned (e.g. corporate stuff)
+if [[ -f $DF_ZSHRC_HOOK_FILE ]]; then
+  . "$DF_ZSHRC_HOOK_FILE"
+fi
