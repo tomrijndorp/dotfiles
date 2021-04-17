@@ -216,12 +216,17 @@ set t_Co=256
 
 "-------------------------------------------------
 "[TR]
+" Use silent! to not report errors.
+" The only reason I have this here is s.t. in my automated dotfiles setup
+" we don't hang on an error if Vundle (and the color schemes) aren't yet
+" installed but we are running the Vundle install at this very moment
+" (using vim +Pluginstall +qall)
 " colorscheme gruvbox
 " colorscheme tender
 " colorscheme hybrid
 " colorscheme OceanicNext
-colorscheme monokai
-colorscheme gruvbox
+silent! colorscheme monokai
+silent! colorscheme gruvbox
 
 " Nicer redo
 nnoremap U :redo<CR>

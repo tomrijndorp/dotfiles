@@ -10,6 +10,5 @@ jobs:
       - checkout # check out the code in the project directory
       - setup_remote_docker:
           version: 19.03.13
-          docker_layer_caching: true
       - run: ls -la
       - run: ./test/test.sh
