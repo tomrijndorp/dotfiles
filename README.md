@@ -16,13 +16,32 @@ Ubuntu image. Should give some confidence. Added plus: the Linux install can run
 completely unattended.  
 The Mac version needs the XCode developer tools, which are installed through a GUI.
 
-**3. Easy-ish hooks for extending stuff**
+**3. Sensible defaults**  
+At least for me `:)`
+- `zsh` is the default shell
+- `vim` with Vundle plugins
+
+All this stuff is easy to modify, but you'll probably want to fork the repo. This thing
+is not built to support different users with different needs at the same time.
+
+**4. Easy-ish hooks for extending stuff**
+The main motivation for this was that I need to store secrets / other corporate data
+in my environment. So I created "hooks" that I call into to extend the environment.
+This way, you can store machine-specific info without having to modify files in this
+repo.
 
 **`PATH_PRE_FILE` (default: `~/.path_pre`)**  
 **`PATH_POST_FILE` (default: `~/.path_post`)**
 
 Files with one path entry per line. Will be prepended / appended to the default `PATH`.
-Ignored when not present.
+Ignored when not present. Example `~/.path_pre`:  
+```sh
+# Comments work.
+/company/tools/bin
+~/foo/bar/bin
+```
+will result in `PATH` being e.g.
+`/company/tools/bin:~/foo/bar/bin:/usr/bin/:<more>:usr/local/bin`.
 
 **`~/.zshrc_hook.sh`**  
 `.dotfiles` replaces your standard `~/.zshrc` with the one that is defined in this repo. File that is called into as part of the normal `~/.zshrc`.
@@ -31,14 +50,6 @@ Ignored when not present.
 This script installs a new `.gitconfig` file that uses includes to point to a curated
 config file in this repo. If you want to add your own, store those changes in
 `.gitconfig_local`.
-
-**4. Sensible defaults**  
-At least for me `:)`
-- `zsh` is the default shell
-- `vim` with Vundle plugins
-
-All this stuff is easy to modify, but you'll probably want to fork the repo. This thing
-is not built to support different users with different needs at the same time.
 
 **5. Choose what to install**
 All install scripts are located under `installers`. Using `dot install all` you can do a
