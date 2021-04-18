@@ -1,4 +1,5 @@
-# `.dotfiles`
+# `.dotfiles` [![CircleCI][badge]][ci]
+
 If you're not me, this is probably not for you. There are better starting points for using dotfiles I'm sure!
 But perhaps this is useful for inspiration...
 
@@ -43,3 +44,6 @@ want to find a way to have that thing remain and have it call your entrypoint in
 ## TODOs
 - Automatically set zsh as default shell: modify /etc/shells
 - Sublime snippets and configuration, packages, etc
+
+[ci]: https://app.circleci.com/pipelines/github/tomrijndorp/dotfiles
+[badge]: https://circleci.com/gh/tomrijndorp/dotfiles.svg?style=svg&circle-token=2490c976885733e39d74aaf534213a883103066c
