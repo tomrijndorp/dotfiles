@@ -36,9 +36,6 @@ Plugin 'tpope/vim-fugitive'
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
 Plugin 'git://git.wincent.com/command-t.git'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
@@ -48,14 +45,17 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'wincent/scalpel'
+Plugin 'preservim/nerdcommenter'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+filetype plugin on
 
 " Enable syntax highlighting
 syntax on
- 
  
 "------------------------------------------------------------
 " Must have options {{{1
@@ -225,8 +225,10 @@ set t_Co=256
 " colorscheme tender
 " colorscheme hybrid
 " colorscheme OceanicNext
-silent! colorscheme monokai
+silent! colorscheme molokai
 silent! colorscheme gruvbox
+let g:airline_powerline_fonts = 1
+let g:airline_theme='bubblegum'
 
 " Nicer redo
 nnoremap U :redo<CR>
@@ -246,3 +248,6 @@ nnoremap <leader>rcte :tabedit ~/.tmux.conf<CR>
 
 "CtrlP config
 let g:ctrlp_working_path_mode = 'ra'
+
+"NerdCommenter config - <leader>c<space> is comment toggle.
+let g:NERDCreateDefaultMappings = 1
