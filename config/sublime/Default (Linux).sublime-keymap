@@ -1,6 +1,0 @@
-[
-	{ "keys": ["ctrl+i"], "command": "unbound" },
-    { "keys": ["ctrl+shift+\\"], "command": "plain_tasks_new" ,"context": [{ "key": "selector", "operator": "equal", "operand": "text.todo" }] },
-    { "keys": ["alt+q", "8"], "command": "wrap_lines_plus", "args": {"width": 79}},
-	{ "keys": ["alt+q"], "command": "wrap_lines" },
-]

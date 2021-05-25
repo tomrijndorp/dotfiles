@@ -1,8 +1,0 @@
-// SublimeLinter Settings - User
-{
-    "linters": {
-    	"shellcheck": {
-    		"exclude": "SC1090,SC1091,SC2148"
-    	}
-    }
-}
