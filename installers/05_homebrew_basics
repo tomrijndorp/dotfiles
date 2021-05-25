@@ -3,13 +3,14 @@
 if [[ -z $MAC ]]; then return; fi
 
 brew install \
-    git \
     bash-completion \
-    jupyter \
+    fzf \
+    git \
     htop \
+    jupyter \
+    python3 \
     shellcheck \
     the_silver_searcher \
     tmux \
     tree \
-    python3 \
     vim

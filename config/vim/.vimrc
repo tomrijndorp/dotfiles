@@ -42,12 +42,13 @@ Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'scrooloose/nerdtree'
 
 Plugin 'flazz/vim-colorschemes'
-Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'wincent/scalpel'
 Plugin 'preservim/nerdcommenter'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -246,8 +247,11 @@ nnoremap <silent> <leader>t :NERDTreeToggle<CR>
 " Helpers for tmux
 nnoremap <leader>rcte :tabedit ~/.tmux.conf<CR>
 
-"CtrlP config
-let g:ctrlp_working_path_mode = 'ra'
+"FZF config
+nnoremap <silent> <C-p> :Files<CR>
 
 "NerdCommenter config - <leader>c<space> is comment toggle.
 let g:NERDCreateDefaultMappings = 1
+
+" Disable default airline extensions for a cleaner status bar
+:let g:airline_extensions = []
