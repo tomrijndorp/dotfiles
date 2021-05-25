@@ -24,11 +24,11 @@ if [[ -f $DF_PATH_POST_FILE ]]; then
 fi
 
 
-# For powerline and potentially other files:
-export XDG_CONFIG_HOME="$HOME/.config"
-
 # Environment for less; enable raw ANSI characters and case insensitive search
 export LESS=-Ri
+
+# Settings for FZF
+export FZF_DEFAULT_COMMAND='fd --type f'
 
 # Mac environment
 [[ -n $MAC ]] && {

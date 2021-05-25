@@ -238,6 +238,7 @@ nnoremap U :redo<CR>
 let mapleader = " "
 " Note: temporarily always source vimrc so I can do some quick testing
 nnoremap <silent> <leader>w :w<CR>:source ~/.vimrc<CR>
+nnoremap <silent> <leader>q :q<CR>
 nnoremap <leader>rcr :source ~/.vimrc<CR>
 nnoremap <leader>rce :tabedit ~/.vimrc<CR>
 nnoremap <silent> <leader><CR> :nohlsearch<CR>
@@ -249,9 +250,13 @@ nnoremap <leader>rcte :tabedit ~/.tmux.conf<CR>
 
 "FZF config
 nnoremap <silent> <C-p> :Files<CR>
+" Call FZF so you can still enter a directory to search
+nnoremap <leader>f :FZF 
+nnoremap <leader>p :Buffers<CR>
 
 "NerdCommenter config - <leader>c<space> is comment toggle.
 let g:NERDCreateDefaultMappings = 1
 
 " Disable default airline extensions for a cleaner status bar
 :let g:airline_extensions = []
+

@@ -4,6 +4,7 @@ if [[ -z $MAC ]]; then return; fi
 
 brew install \
     bash-completion \
+    fd \
     fzf \
     git \
     htop \
