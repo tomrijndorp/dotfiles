@@ -10,6 +10,7 @@ brew install \
     htop \
     jupyter \
     python3 \
+    ripgrep \
     shellcheck \
     the_silver_searcher \
     tmux \

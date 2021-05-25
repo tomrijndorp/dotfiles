@@ -35,7 +35,7 @@ Plugin 'tpope/vim-fugitive'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
+"Plugin 'git://git.wincent.com/command-t.git'
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
@@ -253,6 +253,7 @@ nnoremap <silent> <C-p> :Files<CR>
 " Call FZF so you can still enter a directory to search
 nnoremap <leader>f :FZF 
 nnoremap <leader>p :Buffers<CR>
+nnoremap <leader>r :Rg<CR>
 
 "NerdCommenter config - <leader>c<space> is comment toggle.
 let g:NERDCreateDefaultMappings = 1
