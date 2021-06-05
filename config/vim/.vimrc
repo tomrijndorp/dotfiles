@@ -49,6 +49,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
+Plugin 'tpope/vim-surround'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -239,6 +240,7 @@ let mapleader = " "
 " Note: temporarily always source vimrc so I can do some quick testing
 nnoremap <silent> <leader>w :w<CR>:source ~/.vimrc<CR>
 nnoremap <silent> <leader>q :q<CR>
+nnoremap <silent> <leader>Q :qa<CR>
 nnoremap <leader>rcr :source ~/.vimrc<CR>
 nnoremap <leader>rce :tabedit ~/.vimrc<CR>
 nnoremap <silent> <leader><CR> :nohlsearch<CR>

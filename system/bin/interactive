@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if ! which entr > /dev/null; then
+    echo "You need to install entr first!"
+    exit 1
+fi
+
+if [[ $# -eq 0 ]]; then
+    echo "Usage: $(basename $0) [FIND_COMMAND] EXEC_COMMAND"
+elif [[ $# -eq 1 ]]; then
+    FIND_COMMAND=fd
+    EXEC_COMMAND="$1"
+else
+    FIND_COMMAND="$1"
+    shift
+    EXEC_COMMAND="$@"
+fi
+
+get_return_str () {
+    echo "GRS: \<$1\>"
+    if [[ $1 -eq "0" ]]; then
+        echo ✅
+    else
+        echo "🔥 ($1)"
+    fi
+}
+
+$FIND_COMMAND | entr bash -c "
+    echo --- interactive ---
+    if $EXEC_COMMAND; then
+        echo ✅
+    else
+        echo 🔥
+    fi
+    "
