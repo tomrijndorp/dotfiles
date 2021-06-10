@@ -16,5 +16,3 @@ alias gd='git diff'
 alias gdc='git diff --cached'
 alias gau='git add --update'
 
-git config --global alias.co checkout
-git config --global alias.br branch

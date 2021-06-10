@@ -16,11 +16,3 @@ USER $DUSER
 
 RUN \
     ~/.dotfiles/system/bin/dot install all
-# sudo -i -u $DUSER bash <<EOF
-# set -euxo pipefail
-# whoami
-# id -u
-# groups
-# sudo chown -R $DUSER:$DUSER /home/$DUSER/
-# ls -la ~/.dotfiles
-# EOF
