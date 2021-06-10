@@ -31,6 +31,9 @@ export LESS=-Ri
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_COMPLETION_TRIGGER='**'
 
+# Settings for ripgrep
+export RIPGREP_CONFIG_PATH=$DOTFILES/config/.ripgreprc
+
 # Mac environment
 [[ -n $MAC ]] && {
     # Extend the path for user-install pip packages on mac
