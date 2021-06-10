@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Open interactive preview for opening files in vim
+
+set -euo pipefail
+
+FZF_DEFAULT_COMMAND='rg --files --hidden'
+TARGET=$(fzf --preview 'bat --force-colorization --plain {}')
+vi $TARGET
