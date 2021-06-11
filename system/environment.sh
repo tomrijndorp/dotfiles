@@ -28,7 +28,7 @@ fi
 export LESS=-Ri
 
 # Settings for FZF
-export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_COMMAND='rg --files --hidden'
 export FZF_COMPLETION_TRIGGER='**'
 
 # Settings for ripgrep

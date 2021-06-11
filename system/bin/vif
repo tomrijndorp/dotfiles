@@ -5,5 +5,9 @@
 set -euo pipefail
 
 FZF_DEFAULT_COMMAND='rg --files --hidden'
-TARGET=$(fzf --preview 'bat --force-colorization --plain {}')
+if [[ $# -gt 0 ]]; then
+    FZF_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND $1"
+fi
+
+TARGET=$(fzf --preview 'bat --force-colorization --plain {} | xargs -I{} open "vscode://file/$(pwd)/{}')
 vi $TARGET

@@ -26,6 +26,7 @@ get_return_str () {
 }
 
 $FIND_COMMAND | entr bash -c "
+    clear
     echo --- interactive ---
     if $EXEC_COMMAND; then
         echo ✅
