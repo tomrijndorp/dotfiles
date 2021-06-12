@@ -50,6 +50,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-surround'
+Plugin 'machakann/vim-highlightedyank'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -256,6 +257,9 @@ nnoremap <silent> <C-p> :Files<CR>
 nnoremap <leader>f :FZF 
 nnoremap <leader>p :Buffers<CR>
 nnoremap <leader>r :Rg<CR>
+
+" vim-highlightedyank config
+let g:highlightedyank_highlight_duration = 100
 
 "NerdCommenter config - <leader>c<space> is comment toggle.
 let g:NERDCreateDefaultMappings = 1

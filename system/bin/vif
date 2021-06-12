@@ -1,13 +1,28 @@
 #!/bin/bash
 
-# Open interactive preview for opening files in vim
+# Open interactive preview for opening files in vim or vscode
+VSCODE=
+if [[ $(basename $0) == cif ]]; then
+    VSCODE=1
+    VSCODE_PATH="/Applications/Visual Studio Code.app" 
+fi
 
 set -euo pipefail
 
 FZF_DEFAULT_COMMAND='rg --files --hidden'
+# If we pass in a directory, dunk that into the call to rg
 if [[ $# -gt 0 ]]; then
     FZF_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND $1"
 fi
 
-TARGET=$(fzf --preview 'bat --force-colorization --plain {} | xargs -I{} open "vscode://file/$(pwd)/{}')
-vi $TARGET
+if [[ -n $VSCODE ]]; then
+    if [[ $MAC ]]; then
+        fzf --preview 'bat --force-colorization --plain {}' | xargs -I{} open -a "$VSCODE_PATH" "vscode://file/$(pwd)/{}"
+    else
+        # Untested
+        fzf --preview 'bat --force-colorization --plain {}' | xargs -I{} code "vscode://file/$(pwd)/{}"
+    fi
+else
+    TARGET=$(fzf --preview 'bat --force-colorization --plain {}')
+    vi "$TARGET"
+fi
