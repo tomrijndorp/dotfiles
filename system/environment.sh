@@ -1,3 +1,4 @@
+#!/bin/bash
 # Common environment
 
 #
@@ -10,7 +11,7 @@ DEFAULT_PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$DOTFILES/system/bin:$
 PATH=$DEFAULT_PATH
 
 pathify() {
-    cat $1 | awk '!/#/ {print}' | tr '\n' :
+    awk '!/#/ {print}' "$1" | tr '\n' :
 }
 
 # prepend, append to PATH
